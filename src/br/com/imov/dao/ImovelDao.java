@@ -23,6 +23,8 @@ public class ImovelDao {
 		this.imovel = imovel;
 	}
 
+	//Métodos Genéricos
+	
 	public PreparedStatement getSqlInserir(){
 		PreparedStatement stmt = null;
 		try {
@@ -126,49 +128,38 @@ public class ImovelDao {
 		return resultList.get(0);
 	}
 	
-	public List<Imovel> localizarImovel(){
-		Imovel imovel;
-		Endereco endereco;
+	//Métodos Específicos
+	
+	public List<Imovel> localizarImoveis(){
 		List<Imovel> listImovel = new ArrayList<Imovel>();
 		Map<String, Object> row = null;
 		List<Map<String, Object>> resultList = localizar();
 		for (int i = 0; (i+1) <= resultList.size(); i++) {
 			row = resultList.get(i);
-			imovel = new Imovel();
-			endereco = new Endereco();
-			endereco.setEndereco((Integer) row.get("idEndereco"), 
-											(String) row.get("dsRua"),
-											(String) row.get("dsNumero"),
-											(String) row.get("dsComplemento"),
-											(String) row.get("nmBairro"),
-											(Integer) row.get("nrCep"),
-											(String) row.get("ptCoordenadas"));
-					
-			imovel.setImovel((Integer) row.get("idImovel"), 
-									  (String) row.get("dsImovel"), 
-									  (Integer) row.get("stImovel"), 
-									  endereco);
-			
-			listImovel.add(imovel);
+			listImovel.add(setImovel(row));
 		}
 		return listImovel;
 	}
 	
 	public Imovel localizarImovelById(){
+		Map<String, Object> row = localizarById();
+		return setImovel(row);
+	}
+	
+	public Imovel setImovel(Map<String, Object> row){
 		Imovel imovel = new Imovel();
 		Endereco endereco = new Endereco();
-		Map<String, Object> row = localizarById();
 		endereco.setEndereco((Integer) row.get("idEndereco"), 
-							 (String) row.get("dsRua"),
-						     (String) row.get("dsNumero"),
-				    		 (String) row.get("dsComplemento"),
-							 (String) row.get("nmBairro"),
-							 (Integer) row.get("nrCep"),
-							 (String) row.get("ptCoordenadas"));
+										(String) row.get("dsRua"),
+										(String) row.get("dsNumero"),
+										(String) row.get("dsComplemento"),
+										(String) row.get("nmBairro"),
+										(Integer) row.get("nrCep"),
+										(String) row.get("ptCoordenadas"));
 		imovel.setImovel((Integer) row.get("idImovel"), 
-						 (String) row.get("dsImovel"), 
-						 (Integer) row.get("stImovel"), 
-						 endereco);
+								  (String) row.get("dsImovel"), 
+								  (Integer) row.get("stImovel"), 
+								  endereco);
 		return imovel;
 	}
 }

@@ -12,7 +12,8 @@ import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 
-public class ConexaoBd {
+public class ConexaoBd implements InterfaceConexaoBd{
+	
 	public ConexaoBd() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -52,7 +53,7 @@ public class ConexaoBd {
 		return retorno;	
 	}
 	
-	public boolean atualizar(PreparedStatement stmt) {
+	public boolean atualizar(PreparedStatement stmt){
 		boolean retorno = false;
 		try {
 			int retornoExecute = stmt.executeUpdate();
@@ -88,7 +89,6 @@ public class ConexaoBd {
 	    try {
 			stmt.execute();
 			ResultSet rs = stmt.getResultSet();
-			
 			ResultSetMetaData metaData = rs.getMetaData();
 			Integer columnCount = metaData.getColumnCount();
 			while (rs.next()) {
@@ -107,7 +107,7 @@ public class ConexaoBd {
 		return resultList;	
 	}
 	
-	public Map<String, Object> localizarById(PreparedStatement stmt) {
+	public Map<String, Object> localizarById(PreparedStatement stmt){
 		List<Map<String, Object>> resultList  = localizar(stmt);
 		return resultList.get(0);
 	}

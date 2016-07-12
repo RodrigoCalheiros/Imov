@@ -22,6 +22,8 @@ public class EnderecoDao {
 		this.endereco = endereco;
 	}
 	
+	//Métodos Genéricos
+	
 	public PreparedStatement getSqlInserir(){
 		PreparedStatement stmt = null;
 		try {
@@ -105,7 +107,7 @@ public class EnderecoDao {
 		return retorno;
 	}
 	
-	public boolean atualizar() {
+	public boolean atualizar(){
 		boolean retorno = false;
 		ConexaoBd conexao = new ConexaoBd();
 		retorno = conexao.atualizar(getSqlAtualizar());
@@ -120,47 +122,45 @@ public class EnderecoDao {
 	}
 	
 
-	public List<Map<String, Object>> localizar() {
+	public List<Map<String, Object>> localizar(){
 		ConexaoBd conexao = new ConexaoBd();
 		return conexao.localizar(getSqlLocalizar());
 	}
 
 	
-	public Map<String, Object> localizarById() {
+	public Map<String, Object> localizarById(){
 		ConexaoBd conexao = new ConexaoBd();
 		List<Map<String, Object>> resultList  = conexao.localizar(getSqlLocalizarById());
 		return resultList.get(0);
 	}
 	
+	//Métodos Específicos
+	
 	public List<Endereco> localizarEndereco(){
-		Endereco endereco = null;
 		List<Endereco> listEndereco = new ArrayList<Endereco>();
 		Map<String, Object> row = null;
 		List<Map<String, Object>> resultList  = localizar();
 		for (int i = 0; (i+1) <= resultList.size(); i++) {
 			row = resultList.get(i);
-			endereco = new Endereco();
-			endereco.setEndereco((Integer) row.get("idEndereco"), 
-								 (String) row.get("dsRua"),
-								 (String) row.get("dsNumero"),
-								 (String) row.get("dsComplemento"),
-								 (String) row.get("nmBairro"),
-								 (Integer) row.get("nrCep"),
-								 (String) row.get("ptCoordenadas"));
-			listEndereco.add(endereco);
+			listEndereco.add(setEndereco(row));
 		}
 		return listEndereco;
 	}
 	
 	public Endereco localizarEnderecoById(){
 		Map<String, Object> row =localizarById();
+		return setEndereco(row);
+	}
+	
+	public Endereco setEndereco(Map<String, Object> row){
+		Endereco endereco = new Endereco();
 		endereco.setEndereco((Integer) row.get("idEndereco"), 
-							 (String) row.get("dsRua"),
-							 (String) row.get("dsNumero"),
-							 (String) row.get("dsComplemento"),
-							 (String) row.get("nmBairro"),
-							 (Integer) row.get("nrCep"),
-							 (String) row.get("ptCoordenadas"));
+				 (String) row.get("dsRua"),
+				 (String) row.get("dsNumero"),
+				 (String) row.get("dsComplemento"),
+				 (String) row.get("nmBairro"),
+				 (Integer) row.get("nrCep"),
+				 (String) row.get("ptCoordenadas"));
 		return endereco;
 	}
 }

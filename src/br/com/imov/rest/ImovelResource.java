@@ -18,21 +18,23 @@ import br.com.imov.modelo.Imovel;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class ImovelResource {
-	//private CarroService carroService = new CarroService();
+	
+	private ImovelController imovelController;
+	
+	public ImovelResource(){
+		imovelController = new ImovelController();
+	}
 
 	@GET
 	public List<Imovel> get() {
-		ImovelController imovelController = new ImovelController();
 		return imovelController.localizarImoveis();
-		
 	}
-
+	
 	/**
 	@GET
 	@Path("{id}")
-	public Carro get(@PathParam("id") long id) {
-		Carro c = carroService.getCarro(id);
-		return c;
+	public Imovel get(@PathParam("id") long id) {
+		return ;
 	}
 
 	@GET
@@ -41,6 +43,7 @@ public class ImovelResource {
 		List<Carro> carros = carroService.findByTipo(tipo);
 		return carros;
 	}
+	
 
 	@GET
 	@Path("/nome/{nome}")
@@ -48,23 +51,40 @@ public class ImovelResource {
 		List<Carro> carros = carroService.findByName(nome);
 		return carros;
 	}
+	**/
 
 	@DELETE
-	@Path("{id}")
-	public Response delete(@PathParam("id") long id) {
-		carroService.delete(id);
-		return Response.Ok("Carro deletado com sucesso");
+	//@Path("{id}")
+	public Response delete(Imovel imovel) {
+		boolean retorno = imovelController.excluir(imovel);
+		if (retorno == true){
+			return Response.Sucesso("Imóvel deletado com sucesso.");
+		}
+		else{
+			return Response.Erro("Erro ao deletar o imóvel.");
+		}
 	}
 
 	@POST
-	public Response post(Carro c) {
-		carroService.save(c);
-		return Response.Ok("Carro salvo com sucesso");
+	public Response post(Imovel imovel) {
+		int idImovel = imovelController.inserir(imovel);
+		if (idImovel != 0){
+			return Response.Sucesso("Imóvel salvo com sucesso.");
+		}
+		else{
+			return Response.Erro("Erro ao salvar o imóvel.");
+		}
 	}
 
 	@PUT
-	public Response put(Carro c) {
-		carroService.save(c);
-		return Response.Ok("Carro atualizado com sucesso");
-	**/
+	public Response put(Imovel imovel) {
+		boolean retorno = imovelController.atualizar(imovel);
+		if (retorno == true){
+			return Response.Sucesso("Imóvel atualizado com sucesso.");
+		}
+		else{
+			return Response.Erro("Erro ao atuzalizar o imóvel.");
+		}
+	}
+	
 }
