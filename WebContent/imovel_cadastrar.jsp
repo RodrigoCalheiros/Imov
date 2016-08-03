@@ -8,7 +8,7 @@
             	<h5>Cadastrar imóvel</h5>
 			</div>
             <div class="ibox-content">
-            	<form id="formImovelInserir" name="formImovelInserir" class="form-horizontal" action="javascript:inserirImovel()" method="post">
+            	<form id="formImovelInserir" name="formImovelInserir" class="form-horizontal" action="javascript:inserirImovel()" method="POST">
             		<input type="hidden" id="idImovel" name="idImovel" value="0"/>
             		<input type="hidden" id="idEndereco" name="idEndereco" value="0"/>
                     <div class="form-group">
@@ -93,20 +93,13 @@ function validateForm(){
     });
 }
 
+//Inserir Imóvel
 function inserirImovel(){
-	setRecurso("Imovel", conteudoRecursoAcao(1), "");
-	var jsonRecurso = getJsonRecurso();
-	var jsonConteudo = getJsonInserirImovel();
-	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
+	var jsonRetorno = executarAjax("POST", "imovel", getJsonInserirImovel());
 	dispararMensagem($("#tpMensagem").val(), $("#dsMensagem").val());
-	$("#formImovelInserir")[0].reset();
-}
-
-function atualizarImovel(idImovel){
-	setRecurso("Imovel", conteudoRecursoAcao(3), "");
-	var jsonRecurso = getJsonRecurso();
-	var jsonConteudo = getJsonAtualizarImovel(idImovel);
-	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
+	if ($("#tpMensagem").val() != "Error"){
+		$("#formImovelInserir")[0].reset();
+	}
 }
 
 function getJsonInserirImovel(){
@@ -127,5 +120,13 @@ function getJsonInserirImovel(){
             				      }
         	           };
 	return jsonConteudo;
+}
+
+//Atualizar Imóvel (Sem funcionar)
+function atualizarImovel(idImovel){
+	setRecurso("Imovel", conteudoRecursoAcao(3), "");
+	var jsonRecurso = getJsonRecurso();
+	var jsonConteudo = getJsonAtualizarImovel(idImovel);
+	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
 }
 </script>

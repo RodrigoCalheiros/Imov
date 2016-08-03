@@ -42,39 +42,10 @@ $(document).ready(function () {
 	localizarImoveis();
 });
 
+//Localizar Imóveis
 function localizarImoveis(){
-	setRecurso("GET", "imovel", "");
-	var jsonRetorno = executarAjax();
+	var jsonRetorno = executarAjax("GET", "imovel", "");
 	montarGridImovel(jsonRetorno);
-}
-
-function localizarImovelById(idImovel){
-	//redirecionar passando o id
-	setRecurso("Imovel", conteudoRecursoAcao(5), "imovel_cadastrar.jsp");
-	var jsonRecurso = getJsonRecurso();
-	var jsonConteudo = getJsonlocalizarImovelById(idImovel);
-	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
-}
-
-function excluirImovel(idImovel, idEndereco){
-	var jsonModelo = getJsonExcluirImovel(idImovel, idEndereco);
-	setRecurso("DELETE", "imovel", jsonModelo);
-	var jsonRetorno = executarAjax();
-	dispararMensagem(jsonRetorno);
-	localizarImoveis();
-}
-
-function getJsonExcluirImovel(idImovel, idEndereco){
-	var jsonConteudo = {idImovel: idImovel,
-						endereco: {
-							idEndereco : idEndereco
-						}};
-	return jsonConteudo;
-}
-
-function getJsonlocalizarImovelById(idImovel){
-	var jsonConteudo = {idImovel: idImovel};
-	return jsonConteudo;
 }
 
 function montarGridImovel(jsonImovel){
@@ -99,4 +70,37 @@ function montarGridImovel(jsonImovel){
 	}
 	$('#tb_imovel > tbody').html(gridImovel);
 }
+
+//Localizar Imovel por Id (Sem funcionar)
+function localizarImovelById(idImovel){
+	//redirecionar passando o id
+	setRecurso("Imovel", conteudoRecursoAcao(5), "imovel_cadastrar.jsp");
+	var jsonRecurso = getJsonRecurso();
+	var jsonConteudo = getJsonlocalizarImovelById(idImovel);
+	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
+}
+
+function getJsonlocalizarImovelById(idImovel){
+	var jsonConteudo = {idImovel: idImovel};
+	return jsonConteudo;
+}
+
+//Excluir imóvel
+function excluirImovel(idImovel, idEndereco){
+	var jsonModelo = getJsonExcluirImovel(idImovel, idEndereco);
+	var jsonRetorno = executarAjax("DELETE", "imovel", jsonModelo);
+	dispararMensagem($("#tpMensagem").val(), $("#dsMensagem").val());
+	localizarImoveis();
+}
+
+function getJsonExcluirImovel(idImovel, idEndereco){
+	var jsonConteudo = {idImovel: idImovel,
+						endereco: {
+							idEndereco : idEndereco
+						}};
+	return jsonConteudo;
+}
+
+
+
 </script>

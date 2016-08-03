@@ -7,7 +7,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -52,27 +51,28 @@ public class ImovelResource {
 		return carros;
 	}
 	**/
+	
+	@POST
+	public Response post(Imovel imovel) {
+		int idImovel = imovelController.inserir(imovel);
+		System.out.println(idImovel);
+		if (idImovel != 0){
+			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.1"));
+		}
+		else{
+			return Response.Erro(MensagemUsuario.getMensagem("1.2.1"));
+		}
+	}
 
 	@DELETE
 	//@Path("{id}")
 	public Response delete(Imovel imovel) {
 		boolean retorno = imovelController.excluir(imovel);
 		if (retorno == true){
-			return Response.Sucesso("Imóvel deletado com sucesso.");
+			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.2"));
 		}
 		else{
-			return Response.Erro("Erro ao deletar o imóvel.");
-		}
-	}
-
-	@POST
-	public Response post(Imovel imovel) {
-		int idImovel = imovelController.inserir(imovel);
-		if (idImovel != 0){
-			return Response.Sucesso("Imóvel salvo com sucesso.");
-		}
-		else{
-			return Response.Erro("Erro ao salvar o imóvel.");
+			return Response.Erro(MensagemUsuario.getMensagem("1.2.2"));
 		}
 	}
 
@@ -80,10 +80,10 @@ public class ImovelResource {
 	public Response put(Imovel imovel) {
 		boolean retorno = imovelController.atualizar(imovel);
 		if (retorno == true){
-			return Response.Sucesso("Imóvel atualizado com sucesso.");
+			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.3"));
 		}
 		else{
-			return Response.Erro("Erro ao atuzalizar o imóvel.");
+			return Response.Erro(MensagemUsuario.getMensagem("1.2.3"));
 		}
 	}
 	

@@ -12,28 +12,28 @@ public class Response {
 	
 	public static Response Sucesso(String mensagem) {
 		Response response = new Response();
-		response.setTpMensagem("Sucess");
+		response.setTpMensagem("success");
 		response.setDsMensagem(mensagem);
 		return response;
 	}
 
 	public static Response Erro(String mensagem) {
 		Response response = new Response();
-		response.setTpMensagem("Error");
+		response.setTpMensagem("error");
 		response.setDsMensagem(mensagem);
 		return response;
 	}
 	
 	public static Response Atencao(String mensagem) {
 		Response response = new Response();
-		response.setTpMensagem("Error");
+		response.setTpMensagem("warning");
 		response.setDsMensagem(mensagem);
 		return response;
 	}
 	
 	public static Response Informacao(String mensagem) {
 		Response response = new Response();
-		response.setTpMensagem("Error");
+		response.setTpMensagem("info");
 		response.setDsMensagem(mensagem);
 		return response;
 	}
