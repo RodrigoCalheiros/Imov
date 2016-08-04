@@ -1,30 +1,22 @@
-package br.com.imov.dao;
+package br.com.imov.modelo.sql;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
-import br.com.imov.modelo.Endereco;
 import br.com.imov.modelo.Imovel;
+import br.com.imov.modelo.dao.ConexaoBd;
+import br.com.imov.modelo.interfac.InterfaceSql;
 
-public class ImovelDao {
+public class ImovelSql implements InterfaceSql{
 	
 	private Imovel imovel;
 	
-	public ImovelDao() {
-		this.imovel = new Imovel();
-	}
-	
-	public ImovelDao(Imovel imovel) {
+	public ImovelSql(Imovel imovel){
 		this.imovel = imovel;
 	}
 
-	//Métodos Genéricos
-	
 	public PreparedStatement getSqlInserir(){
 		PreparedStatement stmt = null;
 		try {
@@ -93,73 +85,5 @@ public class ImovelDao {
 			e.printStackTrace();
 		}
 		return stmt;
-	}
-
-	public int inserir() {
-		int retorno = 0;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.inserir(getSqlInserir());
-		return retorno;
-	}
-
-	public boolean atualizar() {
-		boolean retorno = false;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.atualizar(getSqlAtualizar());
-		return retorno;
-	}
-
-	public boolean excluir() {
-		boolean retorno = false;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.excluir(getSqlExcluir());
-		return retorno;
-	}
-
-	public List<Map<String, Object>> localizar() {
-		ConexaoBd conexao = new ConexaoBd();
-		return conexao.localizar(getSqlLocalizar());
-		
-	}
-
-	public Map<String, Object> localizarById() {
-		ConexaoBd conexao = new ConexaoBd();
-		List<Map<String, Object>> resultList  = conexao.localizar(getSqlLocalizarById());
-		return resultList.get(0);
-	}
-	
-	//Métodos Específicos
-	
-	public List<Imovel> localizarImoveis(){
-		List<Imovel> listImovel = new ArrayList<Imovel>();
-		Map<String, Object> row = null;
-		List<Map<String, Object>> resultList = localizar();
-		for (int i = 0; (i+1) <= resultList.size(); i++) {
-			row = resultList.get(i);
-			listImovel.add(setImovel(row));
-		}
-		return listImovel;
-	}
-	
-	public Imovel localizarImovelById(){
-		Map<String, Object> row = localizarById();
-		return setImovel(row);
-	}
-	
-	public Imovel setImovel(Map<String, Object> row){
-		Imovel imovel = new Imovel();
-		Endereco endereco = new Endereco();
-		endereco.setEndereco((Integer) row.get("idEndereco"), 
-										(String) row.get("dsRua"),
-										(String) row.get("dsNumero"),
-										(String) row.get("dsComplemento"),
-										(String) row.get("nmBairro"),
-										(Integer) row.get("nrCep"),
-										(String) row.get("ptCoordenadas"));
-		imovel.setImovel((Integer) row.get("idImovel"), 
-								  (String) row.get("dsImovel"), 
-								  (Integer) row.get("stImovel"), 
-								  endereco);
-		return imovel;
 	}
 }

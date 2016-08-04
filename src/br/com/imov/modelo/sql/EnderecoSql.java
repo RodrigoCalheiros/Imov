@@ -1,29 +1,22 @@
-package br.com.imov.dao;
+package br.com.imov.modelo.sql;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import br.com.imov.modelo.Endereco;
+import br.com.imov.modelo.dao.ConexaoBd;
+import br.com.imov.modelo.interfac.InterfaceSql;
 
-public class EnderecoDao {
+public class EnderecoSql implements InterfaceSql{
 	
 	private Endereco endereco;
-		
-	public EnderecoDao(){
-		this.endereco = new Endereco();
-	}
 	
-	public EnderecoDao(Endereco endereco){
+	public EnderecoSql(Endereco endereco){
 		this.endereco = endereco;
 	}
-	
-	//Métodos Genéricos
-	
+
 	public PreparedStatement getSqlInserir(){
 		PreparedStatement stmt = null;
 		try {
@@ -99,68 +92,5 @@ public class EnderecoDao {
 		}
 		return stmt;
 	}
-	
-	public int inserir(){
-		int retorno = 0;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.inserir(getSqlInserir());
-		return retorno;
-	}
-	
-	public boolean atualizar(){
-		boolean retorno = false;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.atualizar(getSqlAtualizar());
-		return retorno;
-	}
-	
-	public boolean excluir(){
-		boolean retorno = false;
-		ConexaoBd conexao = new ConexaoBd();
-		retorno = conexao.excluir(getSqlExcluir());
-		return retorno;
-	}
-	
 
-	public List<Map<String, Object>> localizar(){
-		ConexaoBd conexao = new ConexaoBd();
-		return conexao.localizar(getSqlLocalizar());
-	}
-
-	
-	public Map<String, Object> localizarById(){
-		ConexaoBd conexao = new ConexaoBd();
-		List<Map<String, Object>> resultList  = conexao.localizar(getSqlLocalizarById());
-		return resultList.get(0);
-	}
-	
-	//Métodos Específicos
-	
-	public List<Endereco> localizarEndereco(){
-		List<Endereco> listEndereco = new ArrayList<Endereco>();
-		Map<String, Object> row = null;
-		List<Map<String, Object>> resultList  = localizar();
-		for (int i = 0; (i+1) <= resultList.size(); i++) {
-			row = resultList.get(i);
-			listEndereco.add(setEndereco(row));
-		}
-		return listEndereco;
-	}
-	
-	public Endereco localizarEnderecoById(){
-		Map<String, Object> row =localizarById();
-		return setEndereco(row);
-	}
-	
-	public Endereco setEndereco(Map<String, Object> row){
-		Endereco endereco = new Endereco();
-		endereco.setEndereco((Integer) row.get("idEndereco"), 
-				 (String) row.get("dsRua"),
-				 (String) row.get("dsNumero"),
-				 (String) row.get("dsComplemento"),
-				 (String) row.get("nmBairro"),
-				 (Integer) row.get("nrCep"),
-				 (String) row.get("ptCoordenadas"));
-		return endereco;
-	}
 }

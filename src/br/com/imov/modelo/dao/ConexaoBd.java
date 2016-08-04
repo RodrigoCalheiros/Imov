@@ -1,4 +1,4 @@
-package br.com.imov.dao;
+package br.com.imov.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,11 @@ import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import br.com.imov.modelo.interfac.InterfaceConexaoBd;
+
 public class ConexaoBd implements InterfaceConexaoBd{
+	
+	private static Connection conexao = null;
 	
 	public ConexaoBd() {
 		try {
@@ -24,12 +28,12 @@ public class ConexaoBd implements InterfaceConexaoBd{
 	}
 
 	public static Connection getConexao() {
-		Connection conexao = null;
 		String url = "jdbc:mysql://localhost:3306/Imov?useSSL=false";
 		String usuario = "imov";
 		String senha = "imov";
 		try {
 			conexao = DriverManager.getConnection(url,usuario, senha);
+		//	conexao.setAutoCommit(false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

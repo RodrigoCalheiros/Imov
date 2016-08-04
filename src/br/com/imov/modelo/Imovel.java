@@ -1,6 +1,6 @@
 package br.com.imov.modelo;
 
-import br.com.imov.dao.EnderecoDao;
+import br.com.imov.modelo.dao.EnderecoDao;
 
 public class Imovel {
 	

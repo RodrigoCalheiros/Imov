@@ -1,4 +1,4 @@
-package br.com.imov.dao;
+package br.com.imov.modelo.interfac;
 
 import java.util.List;
 import java.util.Map;

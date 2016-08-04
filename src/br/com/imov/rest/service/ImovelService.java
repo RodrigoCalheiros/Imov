@@ -1,5 +1,6 @@
-package br.com.imov.rest;
+package br.com.imov.rest.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,18 +11,20 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.com.imov.controller.ImovelController;
+import br.com.imov.controle.ImovelControle;
 import br.com.imov.modelo.Imovel;
+import br.com.imov.rest.MensagemUsuario;
+import br.com.imov.rest.Response;
 
 @Path("/imovel")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class ImovelResource {
+public class ImovelService {
 	
-	private ImovelController imovelController;
+	private ImovelControle imovelController;
 	
-	public ImovelResource(){
-		imovelController = new ImovelController();
+	public ImovelService(){
+		imovelController = new ImovelControle();
 	}
 
 	@GET
@@ -30,7 +33,8 @@ public class ImovelResource {
 	}
 	
 	/**
-	@GET
+	@throws SQLException 
+	 * @GET
 	@Path("{id}")
 	public Imovel get(@PathParam("id") long id) {
 		return ;
@@ -53,9 +57,9 @@ public class ImovelResource {
 	**/
 	
 	@POST
-	public Response post(Imovel imovel) {
-		int idImovel = imovelController.inserir(imovel);
-		System.out.println(idImovel);
+	public Response post(Imovel imovel) throws SQLException {
+		imovelController = new ImovelControle(imovel);
+		int idImovel = imovelController.inserir();
 		if (idImovel != 0){
 			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.1"));
 		}
@@ -65,9 +69,9 @@ public class ImovelResource {
 	}
 
 	@DELETE
-	//@Path("{id}")
 	public Response delete(Imovel imovel) {
-		boolean retorno = imovelController.excluir(imovel);
+		imovelController = new ImovelControle(imovel);
+		boolean retorno = imovelController.excluir();
 		if (retorno == true){
 			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.2"));
 		}
@@ -78,7 +82,8 @@ public class ImovelResource {
 
 	@PUT
 	public Response put(Imovel imovel) {
-		boolean retorno = imovelController.atualizar(imovel);
+		imovelController = new ImovelControle(imovel);
+		boolean retorno = imovelController.atualizar();
 		if (retorno == true){
 			return Response.Sucesso(MensagemUsuario.getMensagem("1.1.3"));
 		}
