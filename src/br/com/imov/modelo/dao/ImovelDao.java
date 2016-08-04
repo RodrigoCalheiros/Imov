@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.jdbc.Connection;
+
 import br.com.imov.modelo.Endereco;
 import br.com.imov.modelo.Imovel;
 import br.com.imov.modelo.interfac.InterfaceDao;
@@ -14,14 +16,14 @@ public class ImovelDao extends ConexaoBd implements InterfaceDao{
 	private Imovel imovel;
 	private ImovelSql imovelSql;
 
-	public ImovelDao() {
+	public ImovelDao(Connection conn) {
 		this.imovel = new Imovel();
-		this.imovelSql = new ImovelSql(this.imovel);
+		this.imovelSql = new ImovelSql(conn, this.imovel);
 	}
 	
-	public ImovelDao(Imovel imovel) {
+	public ImovelDao(Connection conn, Imovel imovel) {
 		this.imovel = imovel;
-		this.imovelSql = new ImovelSql(this.imovel);		
+		this.imovelSql = new ImovelSql(conn, this.imovel);		
 	}
 	
 	//Métodos Genéricos

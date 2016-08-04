@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.jdbc.Connection;
+
 import br.com.imov.modelo.Endereco;
 import br.com.imov.modelo.interfac.InterfaceDao;
 import br.com.imov.modelo.sql.EnderecoSql;
@@ -13,14 +15,14 @@ public class EnderecoDao extends ConexaoBd implements InterfaceDao{
 	private Endereco endereco;
 	private EnderecoSql enderecoSql;
 
-	public EnderecoDao(){
+	public EnderecoDao(Connection conn){
 		this.endereco = new Endereco();
-		this.enderecoSql = new EnderecoSql(this.endereco);
+		this.enderecoSql = new EnderecoSql(conn, this.endereco);
 	}
 	
-	public EnderecoDao(Endereco endereco){
+	public EnderecoDao(Connection conn, Endereco endereco){
 		this.endereco = endereco;
-		this.enderecoSql = new EnderecoSql(this.endereco);
+		this.enderecoSql = new EnderecoSql(conn, this.endereco);
 	}
 	
 	//Métodos Genéricos
@@ -43,13 +45,11 @@ public class EnderecoDao extends ConexaoBd implements InterfaceDao{
 	}
 	
 	public List<Map<String, Object>> localizar(){
-		ConexaoBd conexao = new ConexaoBd();
-		return conexao.localizar(enderecoSql.getSqlLocalizar());
+		return localizar(enderecoSql.getSqlLocalizar());
 	}
 
 	public Map<String, Object> localizarById(){
-		ConexaoBd conexao = new ConexaoBd();
-		List<Map<String, Object>> resultList  = conexao.localizar(enderecoSql.getSqlLocalizarById());
+		List<Map<String, Object>> resultList  = localizar(enderecoSql.getSqlLocalizarById());
 		return resultList.get(0);
 	}
 	

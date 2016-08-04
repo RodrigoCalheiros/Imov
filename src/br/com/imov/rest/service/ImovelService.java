@@ -69,7 +69,7 @@ public class ImovelService {
 	}
 
 	@DELETE
-	public Response delete(Imovel imovel) {
+	public Response delete(Imovel imovel) throws SQLException {
 		imovelController = new ImovelControle(imovel);
 		boolean retorno = imovelController.excluir();
 		if (retorno == true){
@@ -81,7 +81,7 @@ public class ImovelService {
 	}
 
 	@PUT
-	public Response put(Imovel imovel) {
+	public Response put(Imovel imovel) throws SQLException {
 		imovelController = new ImovelControle(imovel);
 		boolean retorno = imovelController.atualizar();
 		if (retorno == true){

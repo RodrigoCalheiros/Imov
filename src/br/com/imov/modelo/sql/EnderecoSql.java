@@ -2,25 +2,27 @@ package br.com.imov.modelo.sql;
 
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import br.com.imov.modelo.Endereco;
-import br.com.imov.modelo.dao.ConexaoBd;
 import br.com.imov.modelo.interfac.InterfaceSql;
 
 public class EnderecoSql implements InterfaceSql{
 	
+	private Connection conn;
 	private Endereco endereco;
 	
-	public EnderecoSql(Endereco endereco){
+	public EnderecoSql(Connection conn, Endereco endereco){
+		this.conn = conn;
 		this.endereco = endereco;
 	}
 
 	public PreparedStatement getSqlInserir(){
 		PreparedStatement stmt = null;
 		try {
-			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("insert into tb_endereco"
+			stmt = (PreparedStatement) conn.prepareStatement("insert into tb_endereco"
 																			+ " (dsRua, dsNumero, dsComplemento, nmBairro, nrCep, ptCoordenadas)"
 																			+ " values(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, endereco.getDsRua());
@@ -39,7 +41,7 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlAtualizar() {
 		PreparedStatement stmt = null;
 		try {
-			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("update tb_endereco"
+			stmt = (PreparedStatement) conn.prepareStatement("update tb_endereco"
 																			+ " set dsRua = ?, dsNumero = ?, dsComplemento = ?, nmBairro = ?, nrCep = ?, ptCoordenadas = ?"
 																			+ " where idEndereco = ?");
 			stmt.setString(1, endereco.getDsRua());
@@ -59,7 +61,7 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlExcluir(){
 		PreparedStatement stmt = null;
 		try {
-			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("delete from tb_endereco where idEndereco = ?");
+			stmt = (PreparedStatement) conn.prepareStatement("delete from tb_endereco where idEndereco = ?");
 			stmt.setInt(1, endereco.getIdEndereco());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -71,7 +73,7 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlLocalizar(){
 		PreparedStatement stmt = null;
 		try {
-			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("select * from tb_endereco");
+			stmt = (PreparedStatement) conn.prepareStatement("select * from tb_endereco");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +84,7 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlLocalizarById(){
 		PreparedStatement stmt = null;
 		try {
-			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("select endereco.*"
+			stmt = (PreparedStatement) conn.prepareStatement("select endereco.*"
 																			    + " from tb_endereco as endereco"
 																			    + " where endereco.idEndereco = ?");
 			stmt.setInt(1, endereco.getIdEndereco());

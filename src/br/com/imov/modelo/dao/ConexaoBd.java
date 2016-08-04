@@ -28,17 +28,31 @@ public class ConexaoBd implements InterfaceConexaoBd{
 	}
 
 	public static Connection getConexao() {
-		String url = "jdbc:mysql://localhost:3306/Imov?useSSL=false";
-		String usuario = "imov";
-		String senha = "imov";
 		try {
-			conexao = DriverManager.getConnection(url,usuario, senha);
-		//	conexao.setAutoCommit(false);
+			if (conexao == null || conexao.isClosed()){
+				String url = "jdbc:mysql://localhost:3306/Imov?useSSL=false";
+				String usuario = "imov";
+				String senha = "imov";
+				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+				conexao = DriverManager.getConnection(url,usuario, senha);
+				conexao.setAutoCommit(false);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conexao;
+	}
+	
+	public static void desconectar(){
+		try {
+			if (conexao != null){
+				conexao.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public int inserir(PreparedStatement stmt){
@@ -50,7 +64,6 @@ public class ConexaoBd implements InterfaceConexaoBd{
 			retorno = rs.getInt(1);
 			rs.close();
 			stmt.close();
-			getConexao().close();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}            
@@ -65,7 +78,6 @@ public class ConexaoBd implements InterfaceConexaoBd{
 				retorno = true;
 			}
 			stmt.close();
-			getConexao().close();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}            
@@ -80,7 +92,6 @@ public class ConexaoBd implements InterfaceConexaoBd{
 				retorno = true;
 			}
 			stmt.close();
-			getConexao().close();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}            
@@ -103,8 +114,6 @@ public class ConexaoBd implements InterfaceConexaoBd{
 				resultList.add(row);
 			}
 			rs.close();
-			stmt.close();
-			getConexao().close();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}            
