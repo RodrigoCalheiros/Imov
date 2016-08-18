@@ -38,40 +38,11 @@
 	<script src="js/imovConteudo.js" language="JavaScript"></script>
 </head>
 <body class="gray-bg">
-
-    <div class="loginColumns animated fadeInDown">
-        <div class="row">
-            <div class="col-md-6">
-            	<span><img alt="image" class="img-responsive" src="img/imov2.png" width="80"/></span>
-                <p></p>
-                <p>
-                    Software de gestão imobiliária para controle de imóveis, aluguel, e custos.
-                </p>
-            </div>
-            <div class="col-md-6">
-                <div class="ibox-content">
-                    <form class="m-t" role="form" action="index.html">
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" required="">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Senha" required="">
-                        </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-                        <a href="#">
-                            <small>Esqueci a senha</small>
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <hr/>
-        <div class="row">
-            <div>
-                <strong>Copyright</strong>Rodrigo Calheiros &copy; 2014-2015
-            </div>
-        </div>
-    </div>
-
+	<input type="hidden" id="tpMensagem" name="tpMensagem" value=""/>
+    <input type="hidden" id="dsMensagem" name="dsMensagem" value=""/>
+	<input type="hidden" id="dsRedirect" name="dsRedirect" value=""/>
+	
+	<jsp:doBody/>
+	
 </body>
 </html>

@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -32,29 +33,11 @@ public class ImovelService {
 		return imovelController.localizarImoveis();
 	}
 	
-	/**
-	@throws SQLException 
-	 * @GET
-	@Path("{id}")
-	public Imovel get(@PathParam("id") long id) {
-		return ;
-	}
-
 	@GET
-	@Path("/tipo/{tipo}")
-	public List<Carro> getByTipo(@PathParam("tipo") String tipo) {
-		List<Carro> carros = carroService.findByTipo(tipo);
-		return carros;
+	@Path("{idImovel}")
+	public Imovel get(@PathParam("idImovel") int idImovel) {
+		return imovelController.localizarImovelById(idImovel);
 	}
-	
-
-	@GET
-	@Path("/nome/{nome}")
-	public List<Carro> getByNome(@PathParam("nome") String nome) {
-		List<Carro> carros = carroService.findByName(nome);
-		return carros;
-	}
-	**/
 	
 	@POST
 	public Response post(Imovel imovel) throws SQLException {

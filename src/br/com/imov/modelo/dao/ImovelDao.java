@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.mysql.jdbc.Connection;
-
+import br.com.imov.interfac.InterfaceDao;
 import br.com.imov.modelo.Endereco;
 import br.com.imov.modelo.Imovel;
-import br.com.imov.modelo.interfac.InterfaceDao;
 import br.com.imov.modelo.sql.ImovelSql;
 
 public class ImovelDao extends ConexaoBd implements InterfaceDao{
@@ -16,14 +14,39 @@ public class ImovelDao extends ConexaoBd implements InterfaceDao{
 	private Imovel imovel;
 	private ImovelSql imovelSql;
 
-	public ImovelDao(Connection conn) {
+	public ImovelDao() {
 		this.imovel = new Imovel();
-		this.imovelSql = new ImovelSql(conn, this.imovel);
+		this.imovelSql = new ImovelSql(this.imovel);
 	}
 	
-	public ImovelDao(Connection conn, Imovel imovel) {
+	public ImovelDao(Imovel imovel) {
 		this.imovel = imovel;
-		this.imovelSql = new ImovelSql(conn, this.imovel);		
+		this.imovelSql = new ImovelSql(this.imovel);		
+	}
+	
+	//Métodos Específicos
+	public List<Imovel> localizarImoveis(){
+		List<Imovel> listImovel = new ArrayList<Imovel>();
+		Map<String, Object> row = null;
+		List<Map<String, Object>> resultList = localizar();
+		for (int i = 0; (i+1) <= resultList.size(); i++) {
+			row = resultList.get(i);
+			listImovel.add(setImovel(row));
+		}
+		return listImovel;
+	}
+	
+	public Imovel localizarImovelById(){
+		Map<String, Object> row = localizarById();
+		return setImovel(row);
+	}
+	
+	public Imovel setImovel(Map<String, Object> row){
+		return new Imovel(row);
+	}
+	
+	public Imovel getImovel() {
+		return imovel;
 	}
 	
 	//Métodos Genéricos
@@ -55,45 +78,4 @@ public class ImovelDao extends ConexaoBd implements InterfaceDao{
 		return resultList.get(0);
 	}
 	
-	//Métodos Específicos
-	public List<Imovel> localizarImoveis(){
-		List<Imovel> listImovel = new ArrayList<Imovel>();
-		Map<String, Object> row = null;
-		List<Map<String, Object>> resultList = localizar();
-		for (int i = 0; (i+1) <= resultList.size(); i++) {
-			row = resultList.get(i);
-			listImovel.add(setImovel(row));
-		}
-		return listImovel;
-	}
-	
-	public Imovel localizarImovelById(){
-		Map<String, Object> row = localizarById();
-		return setImovel(row);
-	}
-	
-	public Imovel setImovel(Map<String, Object> row){
-		Imovel imovel = new Imovel();
-		Endereco endereco = new Endereco();
-		endereco.setEndereco((Integer) row.get("idEndereco"), 
-										(String) row.get("dsRua"),
-										(String) row.get("dsNumero"),
-										(String) row.get("dsComplemento"),
-										(String) row.get("nmBairro"),
-										(Integer) row.get("nrCep"),
-										(String) row.get("ptCoordenadas"));
-		imovel.setImovel((Integer) row.get("idImovel"), 
-								  (String) row.get("dsImovel"), 
-								  (Integer) row.get("stImovel"), 
-								  endereco);
-		return imovel;
-	}
-	
-	public Imovel getImovel() {
-		return imovel;
-	}
-
-	public void setImovel(Imovel imovel) {
-		this.imovel = imovel;
-	}
 }

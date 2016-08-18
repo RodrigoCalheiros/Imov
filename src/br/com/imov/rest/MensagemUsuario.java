@@ -11,6 +11,8 @@ public class MensagemUsuario {
 		listMensagem = new HashMap<String, String>();
 		setMensagemSucessoGenerica();
 		setMensagemErroGenerica();
+		setMensagemSucessoLogin();
+		setMensagemErroLogin();
 	}
 	
 	public static String getMensagem(String idMensagem){
@@ -29,6 +31,12 @@ public class MensagemUsuario {
 		listMensagem.put("1.2.3", "Erro ao atualizar o cadastro.");
 	}
 	
-
+	private static void setMensagemSucessoLogin(){
+		listMensagem.put("2.1.1", "Sucesso ao efetuar o login.");
+	}
+	
+	private static void setMensagemErroLogin(){
+		listMensagem.put("2.2.1", "Email ou senha incorretos.");
+	}
 
 }

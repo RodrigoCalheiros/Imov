@@ -71,20 +71,6 @@ function montarGridImovel(jsonImovel){
 	$('#tb_imovel > tbody').html(gridImovel);
 }
 
-//Localizar Imovel por Id (Sem funcionar)
-function localizarImovelById(idImovel){
-	//redirecionar passando o id
-	setRecurso("Imovel", conteudoRecursoAcao(5), "imovel_cadastrar.jsp");
-	var jsonRecurso = getJsonRecurso();
-	var jsonConteudo = getJsonlocalizarImovelById(idImovel);
-	var jsonRetorno = executarAjax(jsonRecurso, jsonConteudo);
-}
-
-function getJsonlocalizarImovelById(idImovel){
-	var jsonConteudo = {idImovel: idImovel};
-	return jsonConteudo;
-}
-
 //Excluir imóvel
 function excluirImovel(idImovel, idEndereco){
 	var jsonModelo = getJsonExcluirImovel(idImovel, idEndereco);
@@ -101,6 +87,9 @@ function getJsonExcluirImovel(idImovel, idEndereco){
 	return jsonConteudo;
 }
 
-
+//Atualizar imóvel
+function atualizarImovel(idImovel){
+	window.location.href = "imovel_cadastrar.jsp?idImovel=" + idImovel;
+}
 
 </script>

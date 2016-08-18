@@ -12,7 +12,7 @@ import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import br.com.imov.modelo.interfac.InterfaceConexaoBd;
+import br.com.imov.interfac.InterfaceConexaoBd;
 
 public class ConexaoBd implements InterfaceConexaoBd{
 	

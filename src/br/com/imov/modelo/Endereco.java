@@ -1,5 +1,7 @@
 package br.com.imov.modelo;
 
+import java.util.Map;
+
 public class Endereco {
 
 	private int idEndereco;
@@ -20,14 +22,18 @@ public class Endereco {
 		this.ptCoordenadas = "";
 	}
 	
-	public void setEndereco(int idEndereco, String dsRua, String dsNumero, String dsComplemento, String nmBairro, int nrCep, String ptCoordenadas){
-		this.idEndereco = idEndereco;
-		this.dsRua = dsRua;
-		this.dsNumero = dsNumero;
-		this.dsComplemento = dsComplemento;
-		this.nmBairro = nmBairro;
-		this.nrCep = nrCep;
-		this.ptCoordenadas = ptCoordenadas;
+	public Endereco(Map<String, Object> row){
+		setEndereco(row);
+	}
+	
+	public void setEndereco(Map<String, Object> row){
+		this.idEndereco = (Integer) (row.get("idEndereco") != null ? row.get("idEndereco") : 0);
+		this.dsRua = (String) (row.get("dsRua") != null ? row.get("dsRua") : "");
+		this.dsNumero = (String) (row.get("dsNumero") != null ? row.get("dsNumero") : "");
+		this.dsComplemento = (String) (row.get("dsComplemento") != null ? row.get("dsComplemento") : "");
+		this.nmBairro = (String) (row.get("nmBairro") != null ? row.get("nmBairro") : "");
+		this.nrCep = (Integer) (row.get("nrCep") != null ? row.get("nrCep") : 0);
+		this.ptCoordenadas = (String) (row.get("ptCoordenadas") != null ? row.get("ptCoordenadas") : "");
 	}
 	
 	public int getIdEndereco() {

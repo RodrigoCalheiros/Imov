@@ -89,11 +89,7 @@
         	</div>
         	<div class="wrapper wrapper-content animated fadeInRight">
             	<div class="row">
-                	<div class="col-lg-12">
-                		<input type="hidden" id="dsAjaxMetodo" name="dsAjaxMetodo" value=""/>
-            			<input type="hidden" id="dsAjaxUrl" name="dsAjaxUrl" value=""/>
-            			<input type="hidden" id="dsAjaxModelo" name="dsAjaxModelo" value=""/>
-            			
+                	<div class="col-lg-12">        			
                 	    <input type="hidden" id="tpMensagem" name="tpMensagem" value=""/>
             			<input type="hidden" id="dsMensagem" name="dsMensagem" value=""/>
             			<input type="hidden" id="dsRedirect" name="dsRedirect" value=""/>

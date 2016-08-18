@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.mysql.jdbc.Connection;
-
+import br.com.imov.interfac.InterfaceDao;
 import br.com.imov.modelo.Endereco;
-import br.com.imov.modelo.interfac.InterfaceDao;
 import br.com.imov.modelo.sql.EnderecoSql;
 
 public class EnderecoDao extends ConexaoBd implements InterfaceDao{
@@ -15,14 +13,14 @@ public class EnderecoDao extends ConexaoBd implements InterfaceDao{
 	private Endereco endereco;
 	private EnderecoSql enderecoSql;
 
-	public EnderecoDao(Connection conn){
+	public EnderecoDao(){
 		this.endereco = new Endereco();
-		this.enderecoSql = new EnderecoSql(conn, this.endereco);
+		this.enderecoSql = new EnderecoSql(this.endereco);
 	}
 	
-	public EnderecoDao(Connection conn, Endereco endereco){
+	public EnderecoDao(Endereco endereco){
 		this.endereco = endereco;
-		this.enderecoSql = new EnderecoSql(conn, this.endereco);
+		this.enderecoSql = new EnderecoSql(this.endereco);
 	}
 	
 	//Métodos Genéricos
@@ -71,14 +69,7 @@ public class EnderecoDao extends ConexaoBd implements InterfaceDao{
 	}
 	
 	public Endereco setEndereco(Map<String, Object> row){
-		Endereco endereco = new Endereco();
-		endereco.setEndereco((Integer) row.get("idEndereco"), 
-				 (String) row.get("dsRua"),
-				 (String) row.get("dsNumero"),
-				 (String) row.get("dsComplemento"),
-				 (String) row.get("nmBairro"),
-				 (Integer) row.get("nrCep"),
-				 (String) row.get("ptCoordenadas"));
+		Endereco endereco = new Endereco(row);
 		return endereco;
 	}
 	

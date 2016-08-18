@@ -1,27 +1,31 @@
 package br.com.imov.modelo;
 
-import br.com.imov.modelo.dao.EnderecoDao;
+import java.util.Map;
 
 public class Imovel {
 	
 	private int idImovel;
 	private String dsImovel;
-	private int stImovel;
+	private boolean stImovel;
 	private Endereco endereco;
 	
 
 	public Imovel() {
 		this.idImovel = 0;
 		this.dsImovel = "";
-		this.stImovel = 0;
+		this.stImovel = false;
 		this.endereco = new Endereco();
 	}
 	
-	public void setImovel(int idImovel, String dsImovel, int stImovel, Endereco endereco){
-		this.idImovel = idImovel;
-		this.dsImovel = dsImovel;
-		this.stImovel = stImovel;
-		this.endereco = endereco;
+	public Imovel(Map<String, Object> row){
+		setImovel(row);
+	}
+	
+	public void setImovel(Map<String, Object> row){
+		this.idImovel =	(Integer) (row.get("idImovel") != null ? row.get("idImovel") : 0);
+		this.dsImovel = (String) (row.get("dsImovel") != null ? row.get("dsImovel") : "");
+		this.stImovel = (boolean) (row.get("stImovel") != null ? row.get("stImovel") : false);
+		this.endereco = new Endereco(row);
 	}
 	
 	public int getIdImovel() {
@@ -40,11 +44,11 @@ public class Imovel {
 		this.dsImovel = dsImovel;
 	}
 
-	public int getStImovel() {
+	public boolean getStImovel() {
 		return stImovel;
 	}
 
-	public void setStImovel(int stImovel) {
+	public void setStImovel(boolean stImovel) {
 		this.stImovel = stImovel;
 	}
 	

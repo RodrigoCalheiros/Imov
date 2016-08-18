@@ -3,26 +3,25 @@ package br.com.imov.controle;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
-
+import br.com.imov.interfac.InterfaceControle;
 import br.com.imov.modelo.Imovel;
 import br.com.imov.modelo.dao.ConexaoBd;
 import br.com.imov.modelo.dao.EnderecoDao;
 import br.com.imov.modelo.dao.ImovelDao;
 
-public class ImovelControle{
+public class ImovelControle implements InterfaceControle{
 	
 	private ImovelDao imovelDao;
 	private EnderecoDao enderecoDao;
 	
 	public ImovelControle() {
-		imovelDao = new ImovelDao((Connection) ConexaoBd.getConexao());
-		enderecoDao = new EnderecoDao((Connection) ConexaoBd.getConexao());
+		imovelDao = new ImovelDao();
+		enderecoDao = new EnderecoDao();
 	}
 	
 	public ImovelControle(Imovel imovel) { 
-		imovelDao = new ImovelDao((Connection) ConexaoBd.getConexao(), imovel);
-		enderecoDao = new EnderecoDao((Connection) ConexaoBd.getConexao(), imovel.getEndereco());
+		imovelDao = new ImovelDao(imovel);
+		enderecoDao = new EnderecoDao(imovel.getEndereco());
 	}
 	
 	public int inserir(){
@@ -104,7 +103,8 @@ public class ImovelControle{
 		return imovelDao.localizarImoveis();
 	}
 	
-	public Imovel localizarImovelById(){
+	public Imovel localizarImovelById(int idImovel){
+		imovelDao.getImovel().setIdImovel(idImovel);
 		return imovelDao.localizarImovelById();
 	}
 

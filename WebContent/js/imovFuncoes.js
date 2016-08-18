@@ -54,6 +54,21 @@ function dispararMensagem(tpMensagem, dsMensagem){
 	}	
 }
 
+function listarParametrosUrl(url){
+	var parametrosDaUrl = url.toString().split("?")[1];
+	if (parametrosDaUrl != null){
+		var listaDeParametros = parametrosDaUrl.split("&");
+		var hash = {};
+		for(var i = 0; i < listaDeParametros.length; i++){
+	    	var parametro = listaDeParametros[i].split("=");
+	    	var chave = parametro[0];
+	    	var valor = parametro[1];
+	    	hash[chave] = valor;
+		}
+	}
+	return hash;
+}
+
 function setMask(){
 	//$(".cep").format("99.999-999");
 }
