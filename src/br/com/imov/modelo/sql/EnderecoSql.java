@@ -1,5 +1,6 @@
 package br.com.imov.modelo.sql;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -21,14 +22,15 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlInserir(){
 		try {
 			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("insert into tb_endereco"
-																			+ " (dsRua, dsNumero, dsComplemento, nmBairro, nrCep, ptCoordenadas)"
-																			+ " values(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+																			+ " (dsRua, dsNumero, dsComplemento, nmBairro, nrCep, nrLatitude, nrLongitude)"
+																			+ " values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, endereco.getDsRua());
 			stmt.setString(2, endereco.getDsNumero());
 			stmt.setString(3, endereco.getDsComplemento());
 			stmt.setString(4, endereco.getNmBairro());
 			stmt.setInt(5, endereco.getNrCep());
-			stmt.setString(6, endereco.getPtCoordenadas());
+			stmt.setBigDecimal(6, endereco.getNrLatitude());
+			stmt.setBigDecimal(7, endereco.getNrLongitude());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,15 +41,16 @@ public class EnderecoSql implements InterfaceSql{
 	public PreparedStatement getSqlAtualizar() {
 		try {
 			stmt = (PreparedStatement) ConexaoBd.getConexao().prepareStatement("update tb_endereco"
-																			+ " set dsRua = ?, dsNumero = ?, dsComplemento = ?, nmBairro = ?, nrCep = ?, ptCoordenadas = ?"
+																			+ " set dsRua = ?, dsNumero = ?, dsComplemento = ?, nmBairro = ?, nrCep = ?, nrLatitude = ?, nrLongitude = ?"
 																			+ " where idEndereco = ?");
 			stmt.setString(1, endereco.getDsRua());
 			stmt.setString(2, endereco.getDsNumero());
 			stmt.setString(3, endereco.getDsComplemento());
 			stmt.setString(4, endereco.getNmBairro());
 			stmt.setInt(5, endereco.getNrCep());
-			stmt.setString(6, endereco.getPtCoordenadas());
-			stmt.setInt(7, endereco.getIdEndereco());
+			stmt.setBigDecimal(6, endereco.getNrLatitude());
+			stmt.setBigDecimal(7, endereco.getNrLongitude());
+			stmt.setInt(8, endereco.getIdEndereco());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

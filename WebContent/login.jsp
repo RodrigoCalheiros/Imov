@@ -60,7 +60,7 @@ function validateForm(){
 }
 
 function efetuarLogin(){
-	var jsonRetorno = executarAjax("POST", "login", getJsonUsuarioLogin());
+	var jsonRetorno = executarAjax("POST", "rest/login", getJsonUsuarioLogin());
 	if($("#tpMensagem").val() == 'success'){
         window.location.href = "/Imov2/index.jsp";
     } else {

@@ -7,7 +7,7 @@ function executarAjax(metodo, url, json){
 	$.ajax({
 		contentType: "application/json; charset=utf-8",
 	    type: metodo,
-	    url: "rest/" + url,
+	    url: url,
 	    async: false,
 	    dataType: "json",
 	    data: JSON.stringify(json),

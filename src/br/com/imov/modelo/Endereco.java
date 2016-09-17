@@ -1,5 +1,6 @@
 package br.com.imov.modelo;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class Endereco {
@@ -10,8 +11,9 @@ public class Endereco {
 	private String dsComplemento;
 	private String nmBairro;
 	private int nrCep;
-	private String ptCoordenadas;
-
+	private BigDecimal nrLatitude;
+	private BigDecimal nrLongitude;
+	
 	public Endereco() {
 		this.idEndereco = 0;
 		this.dsRua = "";
@@ -19,7 +21,8 @@ public class Endereco {
 		this.dsComplemento = "";
 		this.nmBairro = "";
 		this.nrCep = 0;
-		this.ptCoordenadas = "";
+		this.nrLatitude = BigDecimal.ZERO;
+		this.nrLongitude = BigDecimal.ZERO;
 	}
 	
 	public Endereco(Map<String, Object> row){
@@ -33,7 +36,8 @@ public class Endereco {
 		this.dsComplemento = (String) (row.get("dsComplemento") != null ? row.get("dsComplemento") : "");
 		this.nmBairro = (String) (row.get("nmBairro") != null ? row.get("nmBairro") : "");
 		this.nrCep = (Integer) (row.get("nrCep") != null ? row.get("nrCep") : 0);
-		this.ptCoordenadas = (String) (row.get("ptCoordenadas") != null ? row.get("ptCoordenadas") : "");
+		this.nrLatitude = (BigDecimal) (row.get("nrLatitude") != null ? row.get("nrLatitude") : 0);
+		this.nrLongitude = (BigDecimal) (row.get("nrLongitude") != null ? row.get("nrLongitude") : 0);
 	}
 	
 	public int getIdEndereco() {
@@ -83,12 +87,21 @@ public class Endereco {
 	public void setNrCep(int nrCep) {
 		this.nrCep = nrCep;
 	}
-	
-	public String getPtCoordenadas() {
-		return ptCoordenadas;
+
+	public BigDecimal getNrLatitude() {
+		return nrLatitude;
 	}
 
-	public void setPtCoordenadas(String ptCoordenadas) {
-		this.ptCoordenadas = ptCoordenadas;
+	public void setNrLatitude(BigDecimal nrLatitude) {
+		this.nrLatitude = nrLatitude;
 	}
+
+	public BigDecimal getNrLongitude() {
+		return nrLongitude;
+	}
+
+	public void setNrLongitude(BigDecimal nrLongitude) {
+		this.nrLongitude = nrLongitude;
+	}
+	
 }

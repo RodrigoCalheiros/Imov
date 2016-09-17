@@ -10,6 +10,7 @@
     <link href="inspinia/css/bootstrap.min.css" rel="stylesheet">
     <link href="inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="inspinia/css/animate.css" rel="stylesheet">
     <link href="inspinia/css/style.css" rel="stylesheet">
 
@@ -18,6 +19,8 @@
 	<script src="inspinia/js/bootstrap.min.js"></script>
 	<script src="inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 	<script src="inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="inspinia/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="inspinia/js/plugins/dataTables/datatables.min.js"></script>
 	
 	<!-- Custom and plugin javascript -->
 	<script src="inspinia/js/inspinia.js"></script>
@@ -37,72 +40,85 @@
 	<script src="js/imovFuncoes.js" language="JavaScript"></script>
 	<script src="js/imovConteudo.js" language="JavaScript"></script>
 </head>
-<body>
-	<div id="wrapper">
-   		<nav class="navbar-default navbar-static-side" role="navigation">
-      	  	<div class="sidebar-collapse">
-        	    <ul class="nav metismenu" id="side-menu">
-        	        <li class="nav-header">
-        	            <div class="dropdown profile-element">
-        	             	<span>
-                            	<img alt="image" class="img-circle" src="img/rodrigo.jpg" width="48"/>
-							</span>
-           	                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-           	                	<span class="clear"> 
-           	                 		<span class="block m-t-xs"> 
-           	                 			<strong class="font-bold">Rodrigo Calheiros</strong>
-           	                 		</span> 
-           	                 		<span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
-           	                 	</span> 
-                             </a>
-                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="#">Logout</a></li>
-                             </ul>
-                   	 	</div>
-                	</li>
-                	<li class="active">
-                    	<a href="#"><i class="fa fa-home"></i><span class="nav-label">Imóveis</span></a>
-		                <ul class="nav nav-second-level collapse">
-		                    <li><a href="imovel_cadastrar.jsp">Cadastrar Imóvel</a></li>
-		                    <li><a href="imovel_localizar.jsp">Localizar Imóvel</a></li>
-		                </ul>
-                	</li>
-            	</ul>
-        	</div>
-    	</nav>
-		<div id="page-wrapper" class="gray-bg">
-        	<div class="row border-bottom">
-           		<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-                	<div class="navbar-header">
-                    	<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
-                    		<i class="fa fa-bars"></i>
-                    	</a>    	
-                	</div>
-                	<ul class="nav navbar-top-links navbar-right">
-                    	<li>
-                        	<a href="#">
-                            	<i class="fa fa-sign-out"></i> Sair
-                        	</a>
-                    	</li>
-                	</ul>
-            	</nav>
-        	</div>
-        	<div class="wrapper wrapper-content animated fadeInRight">
-            	<div class="row">
-                	<div class="col-lg-12">        			
-                	    <input type="hidden" id="tpMensagem" name="tpMensagem" value=""/>
-            			<input type="hidden" id="dsMensagem" name="dsMensagem" value=""/>
-            			<input type="hidden" id="dsRedirect" name="dsRedirect" value=""/>
-                    	<jsp:doBody/>
-                	</div>
-            	</div>
+<body class="top-navigation">
+<div id="wrapper">
+	<div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom white-bg">
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <a href="index.jsp" class="navbar-brand">Imov</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Locação de imóvel <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="imovel_localizar.jsp">Imóvel</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                            <li><a href="">Menu item</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        </div>
+ 		<div class="wrapper wrapper-content">
+            <div class="container">
+        	  	<input type="hidden" id="tpMensagem" name="tpMensagem" value=""/>
+         		<input type="hidden" id="dsMensagem" name="dsMensagem" value=""/>
+         		<input type="hidden" id="dsRedirect" name="dsRedirect" value=""/>
+            	<jsp:doBody/>
         	</div>
         	<div class="footer">
+            	<div class="pull-right">
+               		10GB of <strong>250GB</strong> Free.
+            	</div>
             	<div>
                 	<strong>Copyright</strong> Rodrigo Calheiros &copy; 2014-2015
             	</div>
         	</div>
-    	</div>
-    </div>
+
+        </div>
+	</div>
+</div>
 </body>
 </html>
