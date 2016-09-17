@@ -232,7 +232,7 @@ function eventoLocalizarEstadosByIdPais(){
 
 function eventoLocalizarByIdEstado(){
 	var idEstado = $("#idEstado").val();
-	var jsonCidades = localizarCidadesByEstados(idEstado);
+	var jsonCidades = localizarCidadesByIdEstados(idEstado);
 	var option;
 	$("#idCidade").empty();
 	for (var i = 0; i < jsonCidades.length; i++){
